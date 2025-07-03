@@ -51,6 +51,7 @@ export class OrderService {
   clearPromotions(): Promise<void> {
     this.thresholdDiscountConfig = null;
     this.buyOneGetOneForCosmeticsActive = false;
+    this.doubleElevenPromotionActive = false;
     return Promise.resolve();
   }
 

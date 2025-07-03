@@ -2,7 +2,7 @@ module.exports = {
   default: {
     require: ['test/steps/**/*.ts'],
     requireModule: ['ts-node/register'],
-    format: ['progress', 'json:reports/cucumber-report.json'],
+    format: ['progress', 'json:coverage/bdd/cucumber-report.json'],
     paths: [
       'test/features/**/order.feature',
       'test/features/**/double-eleven-discount.feature',
