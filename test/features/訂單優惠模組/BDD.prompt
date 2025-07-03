@@ -9,7 +9,7 @@
 
 
 ## Tech Stack
-1. Language Env：TypeScript
+1. Language Env: TypeScript
 2. BDD Test framework: Cucumber-js (@cucumber/cucumber)
 3. Native test framework: Jest
 4. Web Framework: NestJS
