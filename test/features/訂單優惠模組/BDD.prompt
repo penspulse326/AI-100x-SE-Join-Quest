@@ -9,13 +9,14 @@
 
 
 ## Tech Stack
-1. Language Env：Java
-2. BDD Test framework: Cucumber
-3. Native test framework: Junit5
+1. Language Env：TypeScript
+2. BDD Test framework: Cucumber-js (@cucumber/cucumber)
+3. Native test framework: Jest
+4. Web Framework: NestJS
 
 ## Application Environment
 1. App 類型：純模組程式碼
-2. 此 feature file 中的所有優惠邏輯存放至 OrderService 中
+2. 此 feature file 中的所有優惠邏輯存放至 src/order/ 中
 3. Source code root: src/
 
 # BDD 開發流程
