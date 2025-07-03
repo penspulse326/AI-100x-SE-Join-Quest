@@ -1,302 +1,5 @@
 [
   {
-    "description": "  As a player\n  I want to create or join a game\n  So that I can start playing 1A2B game",
-    "elements": [
-      {
-        "description": "",
-        "id": "game-creation;create-a-new-game",
-        "keyword": "Scenario",
-        "line": 7,
-        "name": "Create a new game",
-        "steps": [
-          {
-            "arguments": [],
-            "keyword": "Given ",
-            "line": 8,
-            "name": "no existing game",
-            "result": {
-              "status": "undefined",
-              "duration": 0
-            }
-          },
-          {
-            "arguments": [
-              {
-                "rows": [
-                  {
-                    "cells": [
-                      "gameId",
-                      "playerName"
-                    ]
-                  },
-                  {
-                    "cells": [
-                      "ABC",
-                      "Johnny"
-                    ]
-                  }
-                ]
-              }
-            ],
-            "keyword": "When ",
-            "line": 9,
-            "name": "a player joins a game with:",
-            "result": {
-              "status": "undefined",
-              "duration": 0
-            }
-          },
-          {
-            "arguments": [
-              {
-                "rows": [
-                  {
-                    "cells": [
-                      "gameId",
-                      "state"
-                    ]
-                  },
-                  {
-                    "cells": [
-                      "ABC",
-                      "Waiting for player"
-                    ]
-                  }
-                ]
-              }
-            ],
-            "keyword": "Then ",
-            "line": 12,
-            "name": "a new game should be created with:",
-            "result": {
-              "status": "undefined",
-              "duration": 0
-            }
-          },
-          {
-            "arguments": [
-              {
-                "rows": [
-                  {
-                    "cells": [
-                      "playerId",
-                      "playerName"
-                    ]
-                  },
-                  {
-                    "cells": [
-                      "P1",
-                      "Johnny"
-                    ]
-                  }
-                ]
-              }
-            ],
-            "keyword": "And ",
-            "line": 15,
-            "name": "the game 'ABC' should have 1 player:",
-            "result": {
-              "status": "undefined",
-              "duration": 0
-            }
-          }
-        ],
-        "tags": [
-          {
-            "name": "@game_creation",
-            "line": 1
-          }
-        ],
-        "type": "scenario"
-      },
-      {
-        "description": "",
-        "id": "game-creation;p2-join-an-existing-game",
-        "keyword": "Scenario",
-        "line": 19,
-        "name": "P2 Join an existing game",
-        "steps": [
-          {
-            "arguments": [],
-            "keyword": "Given ",
-            "line": 20,
-            "name": "scenario Game Creation: Create a new game",
-            "result": {
-              "status": "undefined",
-              "duration": 0
-            }
-          },
-          {
-            "arguments": [
-              {
-                "rows": [
-                  {
-                    "cells": [
-                      "gameId",
-                      "playerName"
-                    ]
-                  },
-                  {
-                    "cells": [
-                      "ABC",
-                      "Sean"
-                    ]
-                  }
-                ]
-              }
-            ],
-            "keyword": "When ",
-            "line": 21,
-            "name": "a player joins a game with:",
-            "result": {
-              "status": "undefined",
-              "duration": 0
-            }
-          },
-          {
-            "arguments": [
-              {
-                "rows": [
-                  {
-                    "cells": [
-                      "state"
-                    ]
-                  },
-                  {
-                    "cells": [
-                      "Setting secret"
-                    ]
-                  }
-                ]
-              }
-            ],
-            "keyword": "Then ",
-            "line": 24,
-            "name": "the game 'ABC' should be:",
-            "result": {
-              "status": "undefined",
-              "duration": 0
-            }
-          },
-          {
-            "arguments": [
-              {
-                "rows": [
-                  {
-                    "cells": [
-                      "id",
-                      "name"
-                    ]
-                  },
-                  {
-                    "cells": [
-                      "P1",
-                      "Johnny"
-                    ]
-                  },
-                  {
-                    "cells": [
-                      "P2",
-                      "Sean"
-                    ]
-                  }
-                ]
-              }
-            ],
-            "keyword": "And ",
-            "line": 27,
-            "name": "the game 'ABC' should have 2 players:",
-            "result": {
-              "status": "undefined",
-              "duration": 0
-            }
-          }
-        ],
-        "tags": [
-          {
-            "name": "@game_creation",
-            "line": 1
-          }
-        ],
-        "type": "scenario"
-      },
-      {
-        "description": "",
-        "id": "game-creation;game-join-fails-when-game-is-full",
-        "keyword": "Scenario",
-        "line": 32,
-        "name": "Game join fails when game is full",
-        "steps": [
-          {
-            "arguments": [],
-            "keyword": "Given ",
-            "line": 33,
-            "name": "scenario Game Creation: P2 Join an existing game",
-            "result": {
-              "status": "undefined",
-              "duration": 0
-            }
-          },
-          {
-            "arguments": [
-              {
-                "rows": [
-                  {
-                    "cells": [
-                      "gameId",
-                      "playerName"
-                    ]
-                  },
-                  {
-                    "cells": [
-                      "ABC",
-                      "Roy"
-                    ]
-                  }
-                ]
-              }
-            ],
-            "keyword": "When ",
-            "line": 34,
-            "name": "a player joins a game with:",
-            "result": {
-              "status": "undefined",
-              "duration": 0
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "Then ",
-            "line": 37,
-            "name": "the request fails",
-            "result": {
-              "status": "undefined",
-              "duration": 0
-            }
-          }
-        ],
-        "tags": [
-          {
-            "name": "@game_creation",
-            "line": 1
-          }
-        ],
-        "type": "scenario"
-      }
-    ],
-    "id": "game-creation",
-    "line": 2,
-    "keyword": "Feature",
-    "name": "Game Creation",
-    "tags": [
-      {
-        "name": "@game_creation",
-        "line": 1
-      }
-    ],
-    "uri": "test/features/訂單優惠模組/example.feature"
-  },
-  {
     "description": "  As a shopper\n  I want the system to calculate my order total with applicable promotions\n  So that I can understand how much to pay and what items I will receive",
     "elements": [
       {
@@ -311,9 +14,12 @@
             "keyword": "Given ",
             "line": 8,
             "name": "no promotions are applied",
+            "match": {
+              "location": "test/steps/order.steps.ts:28"
+            },
             "result": {
-              "status": "undefined",
-              "duration": 0
+              "status": "passed",
+              "duration": 228417
             }
           },
           {
@@ -340,9 +46,12 @@
             "keyword": "When ",
             "line": 9,
             "name": "a customer places an order with:",
+            "match": {
+              "location": "test/steps/order.steps.ts:33"
+            },
             "result": {
-              "status": "undefined",
-              "duration": 0
+              "status": "passed",
+              "duration": 207167
             }
           },
           {
@@ -365,9 +74,12 @@
             "keyword": "Then ",
             "line": 12,
             "name": "the order summary should be:",
+            "match": {
+              "location": "test/steps/order.steps.ts:48"
+            },
             "result": {
-              "status": "undefined",
-              "duration": 0
+              "status": "passed",
+              "duration": 68083
             }
           },
           {
@@ -392,9 +104,12 @@
             "keyword": "And ",
             "line": 15,
             "name": "the customer should receive:",
+            "match": {
+              "location": "test/steps/order.steps.ts:70"
+            },
             "result": {
-              "status": "undefined",
-              "duration": 0
+              "status": "passed",
+              "duration": 60750
             }
           }
         ],
@@ -435,9 +150,12 @@
             "keyword": "Given ",
             "line": 20,
             "name": "the threshold discount promotion is configured:",
+            "match": {
+              "location": "test/steps/order.steps.ts:85"
+            },
             "result": {
-              "status": "undefined",
-              "duration": 0
+              "status": "passed",
+              "duration": 140540
             }
           },
           {
@@ -471,9 +189,12 @@
             "keyword": "When ",
             "line": 23,
             "name": "a customer places an order with:",
+            "match": {
+              "location": "test/steps/order.steps.ts:33"
+            },
             "result": {
-              "status": "undefined",
-              "duration": 0
+              "status": "passed",
+              "duration": 84542
             }
           },
           {
@@ -500,9 +221,12 @@
             "keyword": "Then ",
             "line": 27,
             "name": "the order summary should be:",
+            "match": {
+              "location": "test/steps/order.steps.ts:48"
+            },
             "result": {
-              "status": "undefined",
-              "duration": 0
+              "status": "passed",
+              "duration": 42915
             }
           },
           {
@@ -533,9 +257,12 @@
             "keyword": "And ",
             "line": 30,
             "name": "the customer should receive:",
+            "match": {
+              "location": "test/steps/order.steps.ts:70"
+            },
             "result": {
-              "status": "undefined",
-              "duration": 0
+              "status": "passed",
+              "duration": 84708
             }
           }
         ],
@@ -559,9 +286,12 @@
             "keyword": "Given ",
             "line": 36,
             "name": "the buy one get one promotion for cosmetics is active",
+            "match": {
+              "location": "test/steps/order.steps.ts:96"
+            },
             "result": {
-              "status": "undefined",
-              "duration": 0
+              "status": "passed",
+              "duration": 81333
             }
           },
           {
@@ -598,9 +328,12 @@
             "keyword": "When ",
             "line": 37,
             "name": "a customer places an order with:",
+            "match": {
+              "location": "test/steps/order.steps.ts:33"
+            },
             "result": {
-              "status": "undefined",
-              "duration": 0
+              "status": "passed",
+              "duration": 179416
             }
           },
           {
@@ -623,9 +356,12 @@
             "keyword": "Then ",
             "line": 41,
             "name": "the order summary should be:",
+            "match": {
+              "location": "test/steps/order.steps.ts:48"
+            },
             "result": {
-              "status": "undefined",
-              "duration": 0
+              "status": "passed",
+              "duration": 36999
             }
           },
           {
@@ -656,9 +392,12 @@
             "keyword": "And ",
             "line": 44,
             "name": "the customer should receive:",
+            "match": {
+              "location": "test/steps/order.steps.ts:70"
+            },
             "result": {
-              "status": "undefined",
-              "duration": 0
+              "status": "passed",
+              "duration": 34709
             }
           }
         ],
@@ -682,9 +421,12 @@
             "keyword": "Given ",
             "line": 50,
             "name": "the buy one get one promotion for cosmetics is active",
+            "match": {
+              "location": "test/steps/order.steps.ts:96"
+            },
             "result": {
-              "status": "undefined",
-              "duration": 0
+              "status": "passed",
+              "duration": 56040
             }
           },
           {
@@ -713,9 +455,12 @@
             "keyword": "When ",
             "line": 51,
             "name": "a customer places an order with:",
+            "match": {
+              "location": "test/steps/order.steps.ts:33"
+            },
             "result": {
-              "status": "undefined",
-              "duration": 0
+              "status": "passed",
+              "duration": 151165
             }
           },
           {
@@ -738,9 +483,12 @@
             "keyword": "Then ",
             "line": 54,
             "name": "the order summary should be:",
+            "match": {
+              "location": "test/steps/order.steps.ts:48"
+            },
             "result": {
-              "status": "undefined",
-              "duration": 0
+              "status": "passed",
+              "duration": 31791
             }
           },
           {
@@ -765,9 +513,12 @@
             "keyword": "And ",
             "line": 57,
             "name": "the customer should receive:",
+            "match": {
+              "location": "test/steps/order.steps.ts:70"
+            },
             "result": {
-              "status": "undefined",
-              "duration": 0
+              "status": "passed",
+              "duration": 20541
             }
           }
         ],
@@ -791,9 +542,12 @@
             "keyword": "Given ",
             "line": 62,
             "name": "the buy one get one promotion for cosmetics is active",
+            "match": {
+              "location": "test/steps/order.steps.ts:96"
+            },
             "result": {
-              "status": "undefined",
-              "duration": 0
+              "status": "passed",
+              "duration": 70167
             }
           },
           {
@@ -830,9 +584,12 @@
             "keyword": "When ",
             "line": 63,
             "name": "a customer places an order with:",
+            "match": {
+              "location": "test/steps/order.steps.ts:33"
+            },
             "result": {
-              "status": "undefined",
-              "duration": 0
+              "status": "passed",
+              "duration": 97166
             }
           },
           {
@@ -855,9 +612,12 @@
             "keyword": "Then ",
             "line": 67,
             "name": "the order summary should be:",
+            "match": {
+              "location": "test/steps/order.steps.ts:48"
+            },
             "result": {
-              "status": "undefined",
-              "duration": 0
+              "status": "passed",
+              "duration": 20667
             }
           },
           {
@@ -888,9 +648,12 @@
             "keyword": "And ",
             "line": 70,
             "name": "the customer should receive:",
+            "match": {
+              "location": "test/steps/order.steps.ts:70"
+            },
             "result": {
-              "status": "undefined",
-              "duration": 0
+              "status": "passed",
+              "duration": 22417
             }
           }
         ],
@@ -931,9 +694,12 @@
             "keyword": "Given ",
             "line": 76,
             "name": "the threshold discount promotion is configured:",
+            "match": {
+              "location": "test/steps/order.steps.ts:85"
+            },
             "result": {
-              "status": "undefined",
-              "duration": 0
+              "status": "passed",
+              "duration": 46833
             }
           },
           {
@@ -941,9 +707,12 @@
             "keyword": "And ",
             "line": 79,
             "name": "the buy one get one promotion for cosmetics is active",
+            "match": {
+              "location": "test/steps/order.steps.ts:96"
+            },
             "result": {
-              "status": "undefined",
-              "duration": 0
+              "status": "passed",
+              "duration": 52583
             }
           },
           {
@@ -980,9 +749,12 @@
             "keyword": "When ",
             "line": 80,
             "name": "a customer places an order with:",
+            "match": {
+              "location": "test/steps/order.steps.ts:33"
+            },
             "result": {
-              "status": "undefined",
-              "duration": 0
+              "status": "passed",
+              "duration": 95290
             }
           },
           {
@@ -1009,9 +781,12 @@
             "keyword": "Then ",
             "line": 84,
             "name": "the order summary should be:",
+            "match": {
+              "location": "test/steps/order.steps.ts:48"
+            },
             "result": {
-              "status": "undefined",
-              "duration": 0
+              "status": "passed",
+              "duration": 21833
             }
           },
           {
@@ -1042,9 +817,12 @@
             "keyword": "And ",
             "line": 87,
             "name": "the customer should receive:",
+            "match": {
+              "location": "test/steps/order.steps.ts:70"
+            },
             "result": {
-              "status": "undefined",
-              "duration": 0
+              "status": "passed",
+              "duration": 22959
             }
           }
         ],
