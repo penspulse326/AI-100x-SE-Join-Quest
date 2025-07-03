@@ -3,7 +3,10 @@ module.exports = {
     require: ['test/steps/**/*.ts'],
     requireModule: ['ts-node/register'],
     format: ['progress', 'json:reports/cucumber-report.json'],
-    paths: ['test/features/**/order.feature'],
+    paths: [
+      'test/features/**/order.feature',
+      'test/features/**/double-eleven-discount.feature',
+    ],
     tags: 'not @ignore',
     worldParameters: {
       // 可以在這裡加入全域參數

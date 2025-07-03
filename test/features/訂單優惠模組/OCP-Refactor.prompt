@@ -2,7 +2,7 @@
 接著你要進行設計的重構工作。
 
 # Context
-重構目標類別： @OrderService.java
+重構目標類別： OrderService
 重構原則：遵守底下 OCP 設計原則
 Open for 訂單的各種折扣/折價規則, 處理折扣、折價規則之間的組合或順序
 Close for OrderService 以及其他 entities
