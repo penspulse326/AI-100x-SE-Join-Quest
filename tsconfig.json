@@ -16,6 +16,16 @@
     "forceConsistentCasingInFileNames": true,
     "noImplicitAny": false,
     "strictBindCallApply": false,
-    "noFallthroughCasesInSwitch": false
-  }
+    "noFallthroughCasesInSwitch": false,
+    "allowJs": true
+  },
+  "include": [
+    "src/**/*",
+    "test/**/*",
+    "cucumber.js"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
 }
