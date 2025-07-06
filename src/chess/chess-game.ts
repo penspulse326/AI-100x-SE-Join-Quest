@@ -66,31 +66,31 @@ export class ChessGame {
     }
 
     // 根據棋子類型檢查移動規則
-    if (piece === 'Red General') {
+    if (piece === 'Red General' || piece === 'Black General') {
       return this.isValidGeneralMove(fromRow, fromCol, toRow, toCol);
     }
 
-    if (piece === 'Red Guard') {
+    if (piece === 'Red Guard' || piece === 'Black Guard') {
       return this.isValidGuardMove(fromRow, fromCol, toRow, toCol);
     }
 
-    if (piece === 'Red Rook') {
+    if (piece === 'Red Rook' || piece === 'Black Rook') {
       return this.isValidRookMove(fromRow, fromCol, toRow, toCol);
     }
 
-    if (piece === 'Red Horse') {
+    if (piece === 'Red Horse' || piece === 'Black Horse') {
       return this.isValidHorseMove(fromRow, fromCol, toRow, toCol);
     }
 
-    if (piece === 'Red Cannon') {
+    if (piece === 'Red Cannon' || piece === 'Black Cannon') {
       return this.isValidCannonMove(fromRow, fromCol, toRow, toCol);
     }
 
-    if (piece === 'Red Elephant') {
+    if (piece === 'Red Elephant' || piece === 'Black Elephant') {
       return this.isValidElephantMove(fromRow, fromCol, toRow, toCol);
     }
 
-    if (piece === 'Red Soldier') {
+    if (piece === 'Red Soldier' || piece === 'Black Soldier') {
       return this.isValidSoldierMove(fromRow, fromCol, toRow, toCol);
     }
 
@@ -110,12 +110,30 @@ export class ChessGame {
     toRow: number,
     toCol: number,
   ): boolean {
-    // 檢查是否在紅方宮殿內 (1-3, 4-6)
-    if (
-      !this.isInRedPalace(fromRow, fromCol) ||
-      !this.isInRedPalace(toRow, toCol)
-    ) {
+    // 取得當前棋子
+    const piece = this.board.getPiece(fromRow, fromCol);
+    if (!piece) {
       return false;
+    }
+    const isRed = piece.includes('Red');
+
+    // 檢查是否在相應的宮殿內
+    if (isRed) {
+      // 檢查是否在紅方宮殿內 (1-3, 4-6)
+      if (
+        !this.isInRedPalace(fromRow, fromCol) ||
+        !this.isInRedPalace(toRow, toCol)
+      ) {
+        return false;
+      }
+    } else {
+      // 檢查是否在黑方宮殿內 (8-10, 4-6)
+      if (
+        !this.isInBlackPalace(fromRow, fromCol) ||
+        !this.isInBlackPalace(toRow, toCol)
+      ) {
+        return false;
+      }
     }
 
     // 檢查是否只移動一格，且為垂直或水平移動
@@ -137,23 +155,69 @@ export class ChessGame {
   }
 
   private wouldGeneralsFaceEachOther(
-    redGeneralRow: number,
-    redGeneralCol: number,
+    generalRow: number,
+    generalCol: number,
   ): boolean {
-    // 找到黑方將軍的位置
+    // 找到另一方將軍的位置
+    const redGeneral = this.findPiece('Red General');
     const blackGeneral = this.findPiece('Black General');
-    if (!blackGeneral) {
+
+    if (!redGeneral || !blackGeneral) {
+      return false;
+    }
+
+    // 確定哪個將軍在移動
+    let otherGeneral: { row: number; col: number };
+    if (generalRow === redGeneral.row && generalCol === redGeneral.col) {
+      // 如果是紅方將軍在移動，檢查與黑方將軍的關係
+      otherGeneral = blackGeneral;
+    } else if (
+      generalRow === blackGeneral.row &&
+      generalCol === blackGeneral.col
+    ) {
+      // 如果是黑方將軍在移動，檢查與紅方將軍的關係
+      otherGeneral = redGeneral;
+    } else {
+      // 當前位置沒有將軍，檢查移動後的位置
+      const redGeneralAfterMove =
+        generalRow >= 1 && generalRow <= 3
+          ? { row: generalRow, col: generalCol }
+          : redGeneral;
+      const blackGeneralAfterMove =
+        generalRow >= 8 && generalRow <= 10
+          ? { row: generalRow, col: generalCol }
+          : blackGeneral;
+
+      // 檢查是否在同一列
+      if (redGeneralAfterMove.col === blackGeneralAfterMove.col) {
+        // 檢查兩個將軍之間是否有其他棋子
+        const minRow = Math.min(
+          redGeneralAfterMove.row,
+          blackGeneralAfterMove.row,
+        );
+        const maxRow = Math.max(
+          redGeneralAfterMove.row,
+          blackGeneralAfterMove.row,
+        );
+
+        for (let row = minRow + 1; row < maxRow; row++) {
+          if (!this.board.isEmpty(row, redGeneralAfterMove.col)) {
+            return false; // 中間有棋子，不違規
+          }
+        }
+        return true; // 中間沒有棋子，違規
+      }
       return false;
     }
 
     // 檢查是否在同一列
-    if (redGeneralCol === blackGeneral.col) {
+    if (generalCol === otherGeneral.col) {
       // 檢查兩個將軍之間是否有其他棋子
-      const minRow = Math.min(redGeneralRow, blackGeneral.row);
-      const maxRow = Math.max(redGeneralRow, blackGeneral.row);
+      const minRow = Math.min(generalRow, otherGeneral.row);
+      const maxRow = Math.max(generalRow, otherGeneral.row);
 
       for (let row = minRow + 1; row < maxRow; row++) {
-        if (!this.board.isEmpty(row, redGeneralCol)) {
+        if (!this.board.isEmpty(row, generalCol)) {
           return false; // 中間有棋子，不違規
         }
       }
@@ -178,18 +242,40 @@ export class ChessGame {
     return row >= 1 && row <= 3 && col >= 4 && col <= 6;
   }
 
+  private isInBlackPalace(row: number, col: number): boolean {
+    return row >= 8 && row <= 10 && col >= 4 && col <= 6;
+  }
+
   private isValidGuardMove(
     fromRow: number,
     fromCol: number,
     toRow: number,
     toCol: number,
   ): boolean {
-    // 檢查是否在紅方宮殿內 (1-3, 4-6)
-    if (
-      !this.isInRedPalace(fromRow, fromCol) ||
-      !this.isInRedPalace(toRow, toCol)
-    ) {
+    // 取得當前棋子
+    const piece = this.board.getPiece(fromRow, fromCol);
+    if (!piece) {
       return false;
+    }
+    const isRed = piece.includes('Red');
+
+    // 檢查是否在相應的宮殿內
+    if (isRed) {
+      // 檢查是否在紅方宮殿內 (1-3, 4-6)
+      if (
+        !this.isInRedPalace(fromRow, fromCol) ||
+        !this.isInRedPalace(toRow, toCol)
+      ) {
+        return false;
+      }
+    } else {
+      // 檢查是否在黑方宮殿內 (8-10, 4-6)
+      if (
+        !this.isInBlackPalace(fromRow, fromCol) ||
+        !this.isInBlackPalace(toRow, toCol)
+      ) {
+        return false;
+      }
     }
 
     // 檢查是否為斜對角移動一格
@@ -334,9 +420,24 @@ export class ChessGame {
       return false;
     }
 
-    // 檢查是否在己方陣地（不能跨越河界）
-    if (!this.isInRedSide(fromRow) || !this.isInRedSide(toRow)) {
+    // 取得當前棋子
+    const piece = this.board.getPiece(fromRow, fromCol);
+    if (!piece) {
       return false;
+    }
+    const isRed = piece.includes('Red');
+
+    // 檢查是否在己方陣地（不能跨越河界）
+    if (isRed) {
+      // 紅方象：在紅方陣地 (1-5行)
+      if (!this.isInRedSide(fromRow) || !this.isInRedSide(toRow)) {
+        return false;
+      }
+    } else {
+      // 黑方象：在黑方陣地 (6-10行)
+      if (!this.isInBlackSide(fromRow) || !this.isInBlackSide(toRow)) {
+        return false;
+      }
     }
 
     // 檢查中間位置是否有棋子阻擋（塞象眼）
@@ -349,6 +450,11 @@ export class ChessGame {
   private isInRedSide(row: number): boolean {
     // 紅方陣地：1-5 行
     return row >= 1 && row <= 5;
+  }
+
+  private isInBlackSide(row: number): boolean {
+    // 黑方陣地：6-10 行
+    return row >= 6 && row <= 10;
   }
 
   private isValidSoldierMove(
@@ -365,19 +471,43 @@ export class ChessGame {
       return false;
     }
 
+    // 取得當前棋子
+    const piece = this.board.getPiece(fromRow, fromCol);
+    if (!piece) {
+      return false;
+    }
+    const isRed = piece.includes('Red');
+
     // 檢查是否為合法的移動方向
-    if (this.isRedSoldierCrossedRiver(fromRow)) {
-      // 已過河：可以向前或左右移動，但不能後退
-      return rowDiff >= 0; // 不能向後退（rowDiff < 0）
+    if (isRed) {
+      // 紅方兵
+      if (this.isRedSoldierCrossedRiver(fromRow)) {
+        // 已過河：可以向前或左右移動，但不能後退
+        return rowDiff >= 0; // 不能向後退（rowDiff < 0）
+      } else {
+        // 未過河：只能向前移動
+        return rowDiff === 1 && colDiff === 0;
+      }
     } else {
-      // 未過河：只能向前移動
-      return rowDiff === 1 && colDiff === 0;
+      // 黑方卒
+      if (this.isBlackSoldierCrossedRiver(fromRow)) {
+        // 已過河：可以向前或左右移動，但不能後退
+        return rowDiff <= 0; // 不能向後退（rowDiff > 0）
+      } else {
+        // 未過河：只能向前移動
+        return rowDiff === -1 && colDiff === 0;
+      }
     }
   }
 
   private isRedSoldierCrossedRiver(row: number): boolean {
     // 紅方兵過河：在第 6 行及以上
     return row >= 6;
+  }
+
+  private isBlackSoldierCrossedRiver(row: number): boolean {
+    // 黑方卒過河：在第 5 行及以下
+    return row <= 5;
   }
 
   private checkGameEnd(): void {

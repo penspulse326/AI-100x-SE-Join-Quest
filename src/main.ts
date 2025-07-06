@@ -6,11 +6,11 @@ import { AppModule } from './app.module';
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
-  // 設定靜態資源目錄
-  app.useStaticAssets(join(__dirname, '..', 'public'));
+  // 設定靜態資源目錄 - 修改為指向項目根目錄的 public 目錄
+  app.useStaticAssets(join(__dirname, '..', '..', 'public'));
 
-  // 設定視圖模板目錄
-  app.setBaseViewsDir(join(__dirname, '..', 'views'));
+  // 設定視圖模板目錄 - 修改為指向項目根目錄的 views 目錄
+  app.setBaseViewsDir(join(__dirname, '..', '..', 'views'));
 
   // 設定模板引擎
   app.setViewEngine('hbs');
