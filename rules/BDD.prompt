@@ -5,8 +5,7 @@
 # Context
 
 ## Design Guideline
-- 參考 entities ERD: @ERD.png 以及 OOD 設計圖：@OOD.png 。兩張圖中所指示的類別屬性及操作只是基準，你可視情況增加新的類別、屬性或行為。
-
+1. 依照 NestJS 的最佳實踐，實作可供測試的 service
 
 ## Tech Stack
 1. Language Env: TypeScript
@@ -16,7 +15,7 @@
 
 ## Application Environment
 1. App 類型：純模組程式碼
-2. 此 feature file 中的所有優惠邏輯存放至 src/order/ 中
+2. 依照 feature file 實作的所有邏輯請存放至 src/**/ 中
 3. Source code root: src/
 
 # BDD 開發流程
